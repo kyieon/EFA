@@ -1,3 +1,10 @@
+.idea
+.idea/*.xml
+*.iml
+*.xml
+
+**/bin/*
+
 # Binaries for programs and plugins
 *.exe
 *.exe~
