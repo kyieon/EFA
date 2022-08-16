@@ -25,8 +25,12 @@ var loginCmd = &cobra.Command{
 	},
 }
 
+var username string
+var password string
+
 func init() {
 	rootCmd.AddCommand(loginCmd)
-	loginCmd.PersistentFlags().String("username", "", "Name of the user to login")
-	loginCmd.PersistentFlags().String("password", "", "Password of the user")
+	loginCmd.PersistentFlags().StringVar(&username, "username", "", "Name of the user to login")
+	loginCmd.PersistentFlags().StringVar(&password, "password", "", "Password of the user")
+	loginCmd.MarkPersistentFlagRequired("password")
 }
