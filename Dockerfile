@@ -31,6 +31,6 @@ COPY cli/cmd ./cmd
 RUN go build -o efa
 RUN mv efa /usr/bin
 
-EXPOSE 8080
+EXPOSE 22
 
 CMD ["sh", "-c", "service sshd restart && sh"]
