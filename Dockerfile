@@ -1,6 +1,12 @@
 FROM --platform=linux/amd64 golang:1.17.2-alpine
 
 RUN \
+    apk --no-cache add tzdata && \
+	cp /usr/share/zoneinfo/Asia/Seoul /etc/localtime && \
+	echo "Asia/Seoul" > /etc/timezone \
+	apk del tzdata \
+
+RUN \
   apk update && \
   apk add openrc --no-cache && \
   apk add openssh-server && \
