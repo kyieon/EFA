@@ -4,6 +4,7 @@ Copyright © 2022 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"errors"
 	"fmt"
 	"github.com/spf13/cobra"
 )
@@ -11,7 +12,7 @@ import (
 // fabricCmd represents the fabric command
 var fabricCmd = &cobra.Command{
 	Use:   "fabric",
-	Short: "",
+	Short: "Fabric service commands",
 }
 
 var fabricCreateCmd = &cobra.Command{
@@ -72,8 +73,135 @@ For config refresh reason, run "efa fabric debug config-gen-reason" for details
 	},
 }
 
+var fabricTopologyCmd = &cobra.Command{
+	Use:   "topology",
+	Short: "Show Fabric topology commands",
+}
+
+var fabricTopologyShowCmd = &cobra.Command{
+	Use:   "show",
+	Short: "Show Fabric topology commands",
+}
+
+var fabricTopologyShowPhysicalCmd = &cobra.Command{
+	Use:   "physical",
+	Short: "fabric topology show physical",
+	RunE: func(cmd *cobra.Command, args []string) error {
+
+		switch topologyShowPhysical_name {
+		case "default":
+			fmt.Print(`+----------------+------------------+---------------------+-----------------------+-----------------------+----------------------------+---------------------------+--------------------------------+
+| SOURCE NODE IP | SOURCE NODE ROLE | DESTINATION NODE IP | DESTINATION NODE ROLE | SOURCE NODE INTERFACE | DESTINATION NODE INTERFACE | SOURCE DEVICE MULTI HOMED | DESTINATION DEVICE MULTI HOMED |
++----------------+------------------+---------------------+-----------------------+-----------------------+----------------------------+---------------------------+--------------------------------+
++----------------+------------------+---------------------+-----------------------+-----------------------+----------------------------+---------------------------+--------------------------------+
+--- Time Elapsed: 197.712052ms ---
+`)
+		case "TB2":
+			fmt.Print(`+----------------+------------------+---------------------+-----------------------+-----------------------+----------------------------+---------------------------+--------------------------------+
+| SOURCE NODE IP | SOURCE NODE ROLE | DESTINATION NODE IP | DESTINATION NODE ROLE | SOURCE NODE INTERFACE | DESTINATION NODE INTERFACE | SOURCE DEVICE MULTI HOMED | DESTINATION DEVICE MULTI HOMED |
++----------------+------------------+---------------------+-----------------------+-----------------------+----------------------------+---------------------------+--------------------------------+
+| 60.30.181.104  | Leaf             | 60.30.181.101       | Spine                 | 0/21                  | 0/2                        | true                      | false                          |
+| 60.30.181.104  | Leaf             | 60.30.181.102       | Spine                 | 0/22                  | 0/2                        | true                      | false                          |
+| 60.30.181.104  | Leaf             | 60.30.181.103       | Leaf                  | 0/29                  | 0/29                       | true                      | true                           |
+| 60.30.181.104  | Leaf             | 60.30.181.103       | Leaf                  | 0/30                  | 0/30                       | true                      | true                           |
+| 60.30.181.105  | Leaf             | 60.30.181.101       | Spine                 | 0/21                  | 0/3                        | true                      | false                          |
+| 60.30.181.105  | Leaf             | 60.30.181.102       | Spine                 | 0/22                  | 0/3                        | true                      | false                          |
+| 60.30.181.105  | Leaf             | 60.30.181.106       | Leaf                  | 0/25                  | 0/25                       | true                      | true                           |
+| 60.30.181.105  | Leaf             | 60.30.181.106       | Leaf                  | 0/30                  | 0/30                       | true                      | true                           |
+| 60.30.181.106  | Leaf             | 60.30.181.101       | Spine                 | 0/21                  | 0/4                        | true                      | false                          |
+| 60.30.181.106  | Leaf             | 60.30.181.102       | Spine                 | 0/22                  | 0/4                        | true                      | false                          |
+| 60.30.181.106  | Leaf             | 60.30.181.105       | Leaf                  | 0/25                  | 0/25                       | true                      | true                           |
+| 60.30.181.106  | Leaf             | 60.30.181.105       | Leaf                  | 0/30                  | 0/30                       | true                      | true                           |
+| 60.30.181.109  | Leaf             | 60.30.181.101       | Spine                 | 0/21                  | 0/7                        | true                      | false                          |
+| 60.30.181.109  | Leaf             | 60.30.181.102       | Spine                 | 0/22                  | 0/7                        | true                      | false                          |
+| 60.30.181.109  | Leaf             | 60.30.181.101       | Spine                 | 0/23                  | 0/15                       | true                      | false                          |
+| 60.30.181.109  | Leaf             | 60.30.181.102       | Spine                 | 0/24                  | 0/9                        | true                      | false                          |
+| 60.30.181.109  | Leaf             | 60.30.181.110       | Leaf                  | 0/30                  | 0/30                       | true                      | true                           |
+| 60.30.181.109  | Leaf             | 60.30.181.110       | Leaf                  | 0/31                  | 0/31                       | true                      | true                           |
+| 60.30.181.101  | Spine            | 60.30.181.103       | Leaf                  | 0/1                   | 0/21                       | false                     | true                           |
+| 60.30.181.101  | Spine            | 60.30.181.104       | Leaf                  | 0/2                   | 0/21                       | false                     | true                           |
+| 60.30.181.101  | Spine            | 60.30.181.105       | Leaf                  | 0/3                   | 0/21                       | false                     | true                           |
+| 60.30.181.101  | Spine            | 60.30.181.106       | Leaf                  | 0/4                   | 0/21                       | false                     | true                           |
+| 60.30.181.101  | Spine            | 60.30.181.107       | Leaf                  | 0/5                   | 0/21                       | false                     | true                           |
+| 60.30.181.101  | Spine            | 60.30.181.108       | Leaf                  | 0/6                   | 0/21                       | false                     | true                           |
+| 60.30.181.101  | Spine            | 60.30.181.109       | Leaf                  | 0/7                   | 0/21                       | false                     | true                           |
+| 60.30.181.101  | Spine            | 60.30.181.110       | Leaf                  | 0/8                   | 0/21                       | false                     | true                           |
+| 60.30.181.101  | Spine            | 60.30.181.109       | Leaf                  | 0/15                  | 0/23                       | false                     | true                           |
+| 60.30.181.101  | Spine            | 60.30.181.110       | Leaf                  | 0/16                  | 0/23                       | false                     | true                           |
+| 60.30.181.101  | Spine            | 60.30.181.111       | border-leaf           | 0/27                  | 0/1                        | false                     | true                           |
+| 60.30.181.101  | Spine            | 60.30.181.112       | border-leaf           | 0/28                  | 0/1                        | false                     | true                           |
+| 60.30.181.101  | Spine            | 60.30.181.113       | border-leaf           | 0/29                  | 0/1                        | false                     | true                           |
+| 60.30.181.101  | Spine            | 60.30.181.114       | border-leaf           | 0/30                  | 0/1                        | false                     | true                           |
+| 60.30.181.112  | border-leaf      | 60.30.181.101       | Spine                 | 0/1                   | 0/28                       | true                      | false                          |
+| 60.30.181.112  | border-leaf      | 60.30.181.102       | Spine                 | 0/2                   | 0/28                       | true                      | false                          |
+| 60.30.181.112  | border-leaf      | 60.30.181.111       | border-leaf           | 0/36                  | 0/36                       | true                      | true                           |
+| 60.30.181.112  | border-leaf      | 60.30.181.111       | border-leaf           | 0/37                  | 0/37                       | true                      | true                           |
+| 60.30.181.112  | border-leaf      | 60.30.181.111       | border-leaf           | 0/38                  | 0/38                       | true                      | true                           |
+| 60.30.181.114  | border-leaf      | 60.30.181.101       | Spine                 | 0/1                   | 0/30                       | true                      | false                          |
+| 60.30.181.114  | border-leaf      | 60.30.181.102       | Spine                 | 0/2                   | 0/30                       | true                      | false                          |
+| 60.30.181.114  | border-leaf      | 60.30.181.113       | border-leaf           | 0/29                  | 0/29                       | true                      | true                           |
+| 60.30.181.114  | border-leaf      | 60.30.181.113       | border-leaf           | 0/30                  | 0/30                       | true                      | true                           |
+| 60.30.181.102  | Spine            | 60.30.181.103       | Leaf                  | 0/1                   | 0/22                       | false                     | true                           |
+| 60.30.181.102  | Spine            | 60.30.181.104       | Leaf                  | 0/2                   | 0/22                       | false                     | true                           |
+| 60.30.181.102  | Spine            | 60.30.181.105       | Leaf                  | 0/3                   | 0/22                       | false                     | true                           |
+| 60.30.181.102  | Spine            | 60.30.181.106       | Leaf                  | 0/4                   | 0/22                       | false                     | true                           |
+| 60.30.181.102  | Spine            | 60.30.181.107       | Leaf                  | 0/5                   | 0/22                       | false                     | true                           |
+| 60.30.181.102  | Spine            | 60.30.181.108       | Leaf                  | 0/6                   | 0/22                       | false                     | true                           |
+| 60.30.181.102  | Spine            | 60.30.181.109       | Leaf                  | 0/7                   | 0/22                       | false                     | true                           |
+| 60.30.181.102  | Spine            | 60.30.181.110       | Leaf                  | 0/8                   | 0/22                       | false                     | true                           |
+| 60.30.181.102  | Spine            | 60.30.181.109       | Leaf                  | 0/9                   | 0/24                       | false                     | true                           |
+| 60.30.181.102  | Spine            | 60.30.181.110       | Leaf                  | 0/15                  | 0/24                       | false                     | true                           |
+| 60.30.181.102  | Spine            | 60.30.181.111       | border-leaf           | 0/27                  | 0/2                        | false                     | true                           |
+| 60.30.181.102  | Spine            | 60.30.181.112       | border-leaf           | 0/28                  | 0/2                        | false                     | true                           |
+| 60.30.181.102  | Spine            | 60.30.181.113       | border-leaf           | 0/29                  | 0/2                        | false                     | true                           |
+| 60.30.181.102  | Spine            | 60.30.181.114       | border-leaf           | 0/30                  | 0/2                        | false                     | true                           |
+| 60.30.181.113  | border-leaf      | 60.30.181.101       | Spine                 | 0/1                   | 0/29                       | true                      | false                          |
+| 60.30.181.113  | border-leaf      | 60.30.181.102       | Spine                 | 0/2                   | 0/29                       | true                      | false                          |
+| 60.30.181.113  | border-leaf      | 60.30.181.114       | border-leaf           | 0/29                  | 0/29                       | true                      | true                           |
+| 60.30.181.113  | border-leaf      | 60.30.181.114       | border-leaf           | 0/30                  | 0/30                       | true                      | true                           |
+| 60.30.181.108  | Leaf             | 60.30.181.101       | Spine                 | 0/21                  | 0/6                        | true                      | false                          |
+| 60.30.181.108  | Leaf             | 60.30.181.102       | Spine                 | 0/22                  | 0/6                        | true                      | false                          |
+| 60.30.181.108  | Leaf             | 60.30.181.107       | Leaf                  | 0/29                  | 0/29                       | true                      | true                           |
+| 60.30.181.108  | Leaf             | 60.30.181.107       | Leaf                  | 0/30                  | 0/30                       | true                      | true                           |
+| 60.30.181.110  | Leaf             | 60.30.181.101       | Spine                 | 0/21                  | 0/8                        | true                      | false                          |
+| 60.30.181.110  | Leaf             | 60.30.181.102       | Spine                 | 0/22                  | 0/8                        | true                      | false                          |
+| 60.30.181.110  | Leaf             | 60.30.181.101       | Spine                 | 0/23                  | 0/16                       | true                      | false                          |
+| 60.30.181.110  | Leaf             | 60.30.181.102       | Spine                 | 0/24                  | 0/15                       | true                      | false                          |
+| 60.30.181.110  | Leaf             | 60.30.181.109       | Leaf                  | 0/30                  | 0/30                       | true                      | true                           |
+| 60.30.181.110  | Leaf             | 60.30.181.109       | Leaf                  | 0/31                  | 0/31                       | true                      | true                           |
+| 60.30.181.111  | border-leaf      | 60.30.181.101       | Spine                 | 0/1                   | 0/27                       | true                      | false                          |
+| 60.30.181.111  | border-leaf      | 60.30.181.102       | Spine                 | 0/2                   | 0/27                       | true                      | false                          |
+| 60.30.181.111  | border-leaf      | 60.30.181.112       | border-leaf           | 0/36                  | 0/36                       | true                      | true                           |
+| 60.30.181.111  | border-leaf      | 60.30.181.112       | border-leaf           | 0/37                  | 0/37                       | true                      | true                           |
+| 60.30.181.111  | border-leaf      | 60.30.181.112       | border-leaf           | 0/38                  | 0/38                       | true                      | true                           |
+| 60.30.181.103  | Leaf             | 60.30.181.101       | Spine                 | 0/21                  | 0/1                        | true                      | false                          |
+| 60.30.181.103  | Leaf             | 60.30.181.102       | Spine                 | 0/22                  | 0/1                        | true                      | false                          |
+| 60.30.181.103  | Leaf             | 60.30.181.104       | Leaf                  | 0/29                  | 0/29                       | true                      | true                           |
+| 60.30.181.103  | Leaf             | 60.30.181.104       | Leaf                  | 0/30                  | 0/30                       | true                      | true                           |
+| 60.30.181.107  | Leaf             | 60.30.181.101       | Spine                 | 0/21                  | 0/5                        | true                      | false                          |
+| 60.30.181.107  | Leaf             | 60.30.181.102       | Spine                 | 0/22                  | 0/5                        | true                      | false                          |
+| 60.30.181.107  | Leaf             | 60.30.181.108       | Leaf                  | 0/29                  | 0/29                       | true                      | true                           |
+| 60.30.181.107  | Leaf             | 60.30.181.108       | Leaf                  | 0/30                  | 0/30                       | true                      | true                           |
++----------------+------------------+---------------------+-----------------------+-----------------------+----------------------------+---------------------------+--------------------------------+
+--- Time Elapsed: 8.869325318s ---
+`)
+		default:
+			return errors.New(fmt.Sprintf("Fabric %s does not exist", topologyShowPhysical_name))
+		}
+		return nil
+	},
+}
+
+var topologyShowPhysical_name string
+
 func init() {
 	rootCmd.AddCommand(fabricCmd)
 	fabricCmd.AddCommand(fabricCreateCmd)
 	fabricCmd.AddCommand(fabricShowCmd)
+	fabricCmd.AddCommand(fabricTopologyCmd)
+	fabricTopologyCmd.AddCommand(fabricTopologyShowCmd)
+	fabricTopologyShowCmd.AddCommand(fabricTopologyShowPhysicalCmd)
+
+	fabricTopologyShowPhysicalCmd.PersistentFlags().StringVar(&topologyShowPhysical_name, "name", "", "Name")
+	fabricTopologyShowPhysicalCmd.MarkPersistentFlagRequired("name")
 }
