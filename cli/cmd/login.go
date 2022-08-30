@@ -9,19 +9,19 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// loginCmd represents the login command
+/**
+TEST : 2022-08-30 15:54
+
+> efa login --password {pwd}
+*/
 var loginCmd = &cobra.Command{
 	Use:   "login",
 	Short: "Login to the EFA application",
-	Long:  ``,
-	PreRun: func(cmd *cobra.Command, args []string) {
-		fmt.Println("")
-	},
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Login successful.")
-	},
-	PostRun: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("--- Time Elapsed: 20ms ---\n")
+		fmt.Print(`
+Login successful.
+--- Time Elapsed: 163.484639ms ---
+`)
 	},
 }
 

@@ -60,3 +60,9 @@ func Execute() {
 func init() {
 	NewLogger()
 }
+
+/**
+grep "efa" efa.log* | grep -v execute-cli | grep -v "efa version" | grep -v "efa status" | grep -v "efa inventory device
+list" | grep -v "login" | grep -v "logout" | grep -v "efa fabric topology show physical" | grep -v "efa fabric show" | grep -v "config-backup history"
+| grep -v "inventory device discovery-time list" | grep -v "tenant show" | grep -v "tenant vrf show" | grep -v "drift-reconcile history"
+*/

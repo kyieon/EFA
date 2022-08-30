@@ -10,22 +10,25 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// versionCmd represents the version command
+/**
+TEST 2022-08-30 15:58
+
+> efa version
+*/
 var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Display version of the application",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println(`Version : 2.5.4
+		fmt.Print(`Version : 2.5.4
 Build: GA
 Time Stamp: 21-11-04:00:52:09
 Mode: Secure
 Deployment Type: multi-node
 Deployment Platform: TPVM
 Virtual IP: 60.30.181.98
-Node IPs: 60.30.181.99,60.30.181.100`)
-	},
-	PostRun: func(cmd *cobra.Command, args []string) {
-		fmt.Println("--- Time Elapsed: 44ms ---")
+Node IPs: 60.30.181.99,60.30.181.100
+--- Time Elapsed: 6.931585ms ---
+`)
 	},
 }
 

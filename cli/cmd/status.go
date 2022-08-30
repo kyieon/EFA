@@ -10,19 +10,24 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// statusCmd represents the status command
+/**
+TEST 2022-08-30 15:55
+
+> efa status
+*/
 var statusCmd = &cobra.Command{
 	Use:   "status",
 	Short: "Show status of EFA application",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println(`+-----------+---------+--------+---------------+
+		fmt.Print(`+-----------+---------+--------+---------------+
 | Node Name | Role    | Status | IP            |
 +-----------+---------+--------+---------------+
 | tpvm1     | active  | up     | 60.30.181.99  |
 +-----------+---------+--------+---------------+
 | tpvm2     | standby | up     | 60.30.181.100 |
 +-----------+---------+--------+---------------+
---- Time Elapsed: 3.069675379s ---`)
+--- Time Elapsed: 7.133318546s ---
+`)
 	},
 }
 

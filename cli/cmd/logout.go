@@ -9,27 +9,19 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// logoutCmd represents the logout command
+/**
+TEST 2022-08-30 15:55
+
+> efa logout
+*/
 var logoutCmd = &cobra.Command{
 	Use:   "logout",
 	Short: "Logout of the EFA application",
 	Run: func(cmd *cobra.Command, args []string) {
-	},
-	PostRun: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("--- Time Elapsed: 20ms ---\n")
+		fmt.Println("--- Time Elapsed: 20ms ---")
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(logoutCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// logoutCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// logoutCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
