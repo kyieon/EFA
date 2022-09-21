@@ -23,6 +23,33 @@ var inventoryConfigBackupCmd = &cobra.Command{
 	Short: "Config Backup commands",
 }
 
+var inventoryConfigBackupDetailCmd = &cobra.Command{
+	Use:   "detail",
+	Short: "List the Config Backup Detail for given UUID",
+	RunE: func(cmd *cobra.Command, args []string) error {
+		result, err := new(structs.ConfigBackupDetail).Print(inventoryConfigBackupDetail_uuid)
+		if result != "" {
+			fmt.Print(result)
+		}
+		return err
+	},
+}
+
+var inventoryConfigBackupExecuteCmd = &cobra.Command{
+	Use:   "execute",
+	Short: "execute SLX configuration backup",
+	Run: func(cmd *cobra.Command, args []string) {
+		uuid := "19551554-f75f-4b7b-8902-ea8d5fc23bde"
+
+		fmt.Printf(`Config Backup Execute [success]
+Config Backup execution UUID: %s
+
+execute the CLI to get details: efa inventory config-backup detail --uuid %s
+--- Time Elapsed: 609.389693ms ---
+`, uuid, uuid)
+	},
+}
+
 var inventoryConfigBackupHistoryCmd = &cobra.Command{
 	Use:   "history",
 	Short: "History commands",
@@ -222,8 +249,13 @@ Firmware Host Details
 
 var inventoryConfigBackupHistory_ip string
 
+var inventoryConfigBackupDetail_uuid string
+
+var inventoryConfigBackupExecute_ip string
+
 var inventoryDeviceExecuteCLI_ip string
 var inventoryDeviceExecuteCLI_command string
+
 var inventoryDeviceDiscoveryTimeList_fabric string
 
 var inventoryDriftReconcileHistory_ip string
@@ -235,6 +267,17 @@ func init() {
 	inventoryCmd.AddCommand(inventoryConfigBackupCmd)
 	inventoryConfigBackupCmd.AddCommand(inventoryConfigBackupHistoryCmd)
 	inventoryConfigBackupHistoryCmd.PersistentFlags().StringVar(&inventoryConfigBackupHistory_ip, "ip", "", "IP")
+
+	inventoryConfigBackupCmd.AddCommand(inventoryConfigBackupDetailCmd)
+
+	inventoryConfigBackupDetailCmd.PersistentFlags().StringVar(&inventoryConfigBackupDetail_uuid, "uuid", "", "UUID")
+	inventoryConfigBackupDetailCmd.MarkPersistentFlagRequired("uuid")
+
+	inventoryConfigBackupDetailCmd.Flags().String("show-config", "", "Show Config")
+	inventoryConfigBackupDetailCmd.Flags().Lookup("show-config").NoOptDefVal = "none"
+
+	inventoryConfigBackupCmd.AddCommand(inventoryConfigBackupExecuteCmd)
+	inventoryConfigBackupExecuteCmd.PersistentFlags().StringVar(&inventoryConfigBackupExecute_ip, "ip", "", "IP")
 
 	// efa inventory device
 	inventoryCmd.AddCommand(inventoryDeviceCmd)
