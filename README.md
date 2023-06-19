@@ -7,4 +7,4 @@ env GOOS=linux GOARCH=amd64 go build -o efa
 
 -----
 
-docker run -d -it -p 222:22 --name efa --hostname "(efa:extreme)extreme@tpvm1" efa:0.0.5
+docker run -d -it -p 222:22 --name efa --hostname "(efa:extreme)extreme@tpvm1" efa:0.0.6
